@@ -1,0 +1,29 @@
+---
+version: 1
+
+root:
+  level: INFO
+  handlers: [console]
+
+loggers:
+  dockerBackup:
+    level: INFO
+    handlers: [console]
+    propagate: no
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+#  file:
+#    class : logging.handlers.RotatingFileHandler
+#    formatter: precise
+#    filename: docker-backup.log
+#    maxBytes: 1024
+#    backupCount: 3
+
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

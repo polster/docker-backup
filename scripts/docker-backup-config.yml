@@ -1,0 +1,10 @@
+---
+
+backups:
+  -
+    volume_container: "repodata"
+    backup_target_path: "/Users/sdi/Src/local/docker-backup"
+    backup_source_path: "/usr/local/apache2/htdocs/repo"
+    backup_file_name: "backup-repodata"
+    docker_containers_to_stop:
+      - "repo"

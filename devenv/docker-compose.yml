@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  repo:
+    image: httpd:alpine
+    container_name: repo
+    volumes_from:
+      - repodata
+    ports:
+      - "8080:80"
+  repodata:
+    image: httpd:alpine
+    container_name: repodata
+    volumes:
+      - ./repodata:/usr/local/apache2/htdocs/repo
+    entrypoint: /bin/bash
+
+volumes:
+    repodata:
