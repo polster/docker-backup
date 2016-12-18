@@ -10,6 +10,7 @@ import logging.config
 import time
 from docker import Client
 from docker.errors import APIError
+from yaml.parser import ParserError
 
 logging_config = os.getenv("LOG_CFG", "scripts/logging-config.yml")
 with open(logging_config, 'rt') as f:
@@ -83,6 +84,9 @@ def main(argv):
             start_docker_containers(docker_cli, backup['docker_containers_to_stop'])
     except APIError as docker_api_error:
         logger.error("Unexpected Docker API error: " + docker_api_error.__str__())
+        sys.exit(1)
+    except ParserError as yml_parse_error:
+        logger.error("Unexpected yml parsing error: " + yml_parse_error.__str__())
         sys.exit(1)
     except:
         logger.error("Unexpected error during backup: ", sys.exc_info()[0])
